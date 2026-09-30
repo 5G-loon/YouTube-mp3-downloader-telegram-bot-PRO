@@ -1,0 +1,16 @@
+FROM python:3.10-slim
+
+# نصب ffmpeg برای تبدیل فرمت صوتی
+RUN apt-get update && apt-get install -y ffmpeg && apt-get clean
+
+WORKDIR /app
+
+# نصب وابستگی‌های پایتون
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# کپی کردن کدهای ربات
+COPY . .
+
+# اجرای ربات
+CMD ["python", "bot.py"]
